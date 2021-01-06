@@ -1,14 +1,14 @@
-//const { html } = require('cheerio');
-const cheerio = require('cheerio');
-const { error } = require('console');
-const request = require('request');
+const axios = require('axios');
+const  cheerio = require('cheerio');
 
-request('https://medium.com/', (error,response,html) => {
-if (!error && response.statusCode == 200) {
+axios.get('https://www.forextradingbig.com/instaforex-broker-review/?ref=hackernoon.com').then(response => {
+const html = response.data;
 const $ = cheerio.load(html);
-const siteHeading = $('.no');
 
-const output = siteHeading.text();
-console.log(output);
-}
-})
+const scrapedData = $('a','.comment-bubble').text()
+console.log(scrapedData);
+}).catch(error => {
+    console.log(error);
+});
+
+
